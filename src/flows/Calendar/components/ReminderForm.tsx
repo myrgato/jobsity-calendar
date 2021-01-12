@@ -91,6 +91,7 @@ const ReminderForm = ({ onSave, onEdit, currentReminder, clickedDay }: any) => {
         <TextField
           label="Description"
           value={description}
+          data-testId="text-field-description"
           required
           onChange={(event) => handleDescriptionChange(event.target.value)}
         />
@@ -117,6 +118,7 @@ const ReminderForm = ({ onSave, onEdit, currentReminder, clickedDay }: any) => {
           variant="contained"
           color="primary"
           disabled={description === ""}
+          data-testId="button-commit"
           onClick={async () => {
             if (currentReminder.date) {
               setLoading(true);

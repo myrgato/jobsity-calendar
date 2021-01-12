@@ -8,6 +8,7 @@ import {
 import { Create, Delete } from "@material-ui/icons";
 import { getHours, getMinutes } from "date-fns";
 import React from "react";
+import { RemindersState } from "../../../store/reminders";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -38,18 +39,21 @@ const Reminders = ({ reminders, onEditReminder, onDeleteReminder }: any) => {
   const classes = useStyles();
   let remindersByTime = {};
   if (reminders.length) {
-    remindersByTime = reminders.reduce((acc: any, reminder: any) => {
-      const { date } = reminder;
-      const time = `${String(getHours(date)).padStart(2, "0")}:${String(
-        getMinutes(date)
-      ).padStart(2, "0")}`;
-      if (acc.hasOwnProperty(time)) {
-        acc[time].push(reminder);
+    remindersByTime = reminders.reduce(
+      (acc: any, reminder: RemindersState[0]) => {
+        const { date } = reminder;
+        const time = `${String(getHours(date)).padStart(2, "0")}:${String(
+          getMinutes(date)
+        ).padStart(2, "0")}`;
+        if (acc.hasOwnProperty(time)) {
+          acc[time].push(reminder);
+          return acc;
+        }
+        acc[time] = [reminder];
         return acc;
-      }
-      acc[time] = [reminder];
-      return acc;
-    }, {});
+      },
+      {}
+    );
   }
 
   const keys = Object.keys(remindersByTime);
@@ -78,7 +82,7 @@ const Reminders = ({ reminders, onEditReminder, onDeleteReminder }: any) => {
         <Box key={key}>
           <Box className={classes.time}>
             <Typography>{key}</Typography>
-            {remindersByTime[key].map((reminder: any) => (
+            {remindersByTime[key].map((reminder: any, index: number) => (
               <Box
                 key={reminder.id}
                 mb={1}
@@ -110,6 +114,7 @@ const Reminders = ({ reminders, onEditReminder, onDeleteReminder }: any) => {
                   <IconButton
                     size="small"
                     component="span"
+                    data-testId={`button-reminders-edit-${index}`}
                     onClick={(e: any) => {
                       e.stopPropagation();
                       onEditReminder(reminder);
@@ -119,6 +124,7 @@ const Reminders = ({ reminders, onEditReminder, onDeleteReminder }: any) => {
                     <Create />
                   </IconButton>
                   <IconButton
+                    data-testId={`button-reminders-delete-${index}`}
                     onClick={(e: any) => {
                       e.stopPropagation();
                       onDeleteReminder(reminder.id);

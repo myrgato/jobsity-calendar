@@ -23,6 +23,7 @@ Interview Test for Jobsity - Reminder Calendar
   reminder based on the city.
 - Unit test the functionality: Ability to add a new "reminder" (max 30
   chars) for a user entered day and time. Also, include a city.
+  > Includes also tests for deleting, deleting all, editing and E2E tests with Cypress.
 
 **Bonus Features**
 
@@ -34,7 +35,7 @@ Interview Test for Jobsity - Reminder Calendar
 - Functionality to delete one or ALL the reminders for a specific day
   > Both actions are included
 
-The project also features localstorage integration.
+The project also features localstorage integration via redux-persist.
 
 ## Configuration
 
@@ -78,15 +79,10 @@ $ yarn
 $ yarn start
 
 # Runs unit tests with Jest
-$ yarn test (picks automatically test:watch on local machine and test:coverage on CI)
-$ yarn test:coverage (creates coverage folder)
-$ yarn test:watch (with --watch flag)
-$ yarn test:debug (to use chrome to debug jest tests)
+yarn test
 
 # Runs E2E/Integration tests with Cypress
-$ yarn test:e2e (picks automatically test:e2e:dev on local machine and test:e2e:run on CI)
-$ yarn test:e2e:dev (with interface)
-$ yarn test:e2e:run (without interface)
+$ yarn cy:open
 
 ```
 

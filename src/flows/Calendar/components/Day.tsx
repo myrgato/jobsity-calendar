@@ -49,6 +49,7 @@ const Day = ({
             variant="contained"
             color="secondary"
             size="small"
+            data-testId="button-day-delete-all"
             onClick={(e) => {
               e.stopPropagation();
               onDeleteAllReminders(date);

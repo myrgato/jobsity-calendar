@@ -26,6 +26,7 @@ import {
   deleteReminder,
   editReminder,
   deleteReminders,
+  RemindersState,
 } from "../../store/reminders";
 
 const useStyles = makeStyles((theme) => ({
@@ -85,11 +86,11 @@ const Calendar = () => {
 
   const dispatch = useDispatch();
 
-  async function handleAddReminder(reminder: any) {
+  async function handleAddReminder(reminder: RemindersState[0]) {
     dispatch(await addReminder(remindersState, reminder));
   }
 
-  async function handleEditReminder(reminder: any) {
+  async function handleEditReminder(reminder: RemindersState[0]) {
     dispatch(await editReminder(remindersState, reminder));
   }
 
@@ -187,6 +188,7 @@ const Calendar = () => {
                 {week.map((day: any, column: any) => (
                   <TableCell
                     className={classes.td}
+                    data-testId={`table-cell-${column}`}
                     onClick={() => {
                       selectedDay.current = { row, column };
                       clickedDay.current = day.date;
@@ -196,14 +198,14 @@ const Calendar = () => {
                     <Day
                       date={day.date}
                       reminders={day.reminders}
-                      setReminders={(reminders: any) => {
+                      setReminders={(reminders: RemindersState[0]) => {
                         const newCalendar = [...calendar];
                         newCalendar[row][column].reminders = reminders;
                         setCalendar(newCalendar);
                       }}
                       onDeleteAllReminders={handleDeleteAllReminders}
                       onDeleteReminder={handleDeleteReminder}
-                      onEditReminder={(reminder: any) => {
+                      onEditReminder={(reminder: RemindersState[0]) => {
                         currentReminder.current = reminder;
                         selectedDay.current = { row, column };
                         setReminderModal(true);
@@ -222,7 +224,10 @@ const Calendar = () => {
           margin: "auto",
         }}
         open={reminderModal}
-        onClose={() => setReminderModal(false)}
+        onClose={() => {
+          setReminderModal(false);
+          currentReminder.current = {};
+        }}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
@@ -236,13 +241,13 @@ const Calendar = () => {
           }}
         >
           <ReminderForm
-            onSave={async (reminder: any) => {
+            onSave={async (reminder: RemindersState[0]) => {
               await handleAddReminder(reminder);
               setReminderModal(false);
             }}
             currentReminder={currentReminder.current}
             clickedDay={clickedDay.current}
-            onEdit={async (reminder: any) => {
+            onEdit={async (reminder: RemindersState[0]) => {
               await handleEditReminder(reminder);
               setReminderModal(false);
               currentReminder.current = {};

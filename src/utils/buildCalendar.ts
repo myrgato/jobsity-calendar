@@ -42,7 +42,7 @@ function getLastDayOfMonth(date: Date) {
 
 function getMonthReminders(reminders: RemindersState, date: Date) {
   return reminders.filter(
-    (reminder: any) =>
+    (reminder: RemindersState[0]) =>
       reminder.date.getMonth() === date.getMonth() &&
       reminder.date.getFullYear() === date.getFullYear()
   );
