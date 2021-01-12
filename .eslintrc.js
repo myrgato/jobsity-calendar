@@ -10,6 +10,7 @@ module.exports = {
     "prettier",
     "prettier/react",
     "prettier/@typescript-eslint",
+    "plugin:cypress/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
