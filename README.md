@@ -1,46 +1,96 @@
-# Getting Started with Create React App
+## TOC
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [Configuration](#configuration)
+- [Tests](#tests)
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+Interview Test for Jobsity - Reminder Calendar
 
-### `yarn start`
+**Mandatory Features**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+> All of those below are included in the project
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Ability to add a new "reminder" (max 30 chars) for a user entered day
+  and time. Also, include a city.
+- Display reminders on the calendar view in the correct time order.
+- Allow the user to select color when creating a reminder and display
+  it appropriately.
+- Ability to edit reminders – including changing text, city, day, time
+  and color.
+- Add a weather service call from a free API such as Open Weather Map,
+  and get the weather forecast (ex. Rain) for the date of the calendar
+  reminder based on the city.
+- Unit test the functionality: Ability to add a new "reminder" (max 30
+  chars) for a user entered day and time. Also, include a city.
 
-### `yarn test`
+**Bonus Features**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Expand the calendar to support more than the current month.
+  > There's a top area part with buttons to go to previous or next month and jump back to today.
+  > It features all months and years.
+- Properly handle overflow when multiple reminders appear on the same date.
+  > Reminders are grouped by time.
+- Functionality to delete one or ALL the reminders for a specific day
+  > Both actions are included
 
-### `yarn build`
+The project also features localstorage integration.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Configuration
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Install these packages (prefer the listed versions):**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- yarn 1.21.1
+- npm 6.13.4
+- node 12.16.1
 
-### `yarn eject`
+2. **Create a .env file with the required variables:**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```sh
+REACT_APP_WEATHER_API_KEY=
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Install all dependencies with yarn**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```sh
+yarn
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+4. **Start the server**
 
-## Learn More
+```sh
+yarn start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5. **If Cypress (yarn test:e2e) is still not installed after yarn. Install cypress with:**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```sh
+npx cypress install
+```
+
+7. **Commands**
+
+```bash
+# Installs all dependendies
+$ yarn
+
+# Runs the application
+$ yarn start
+
+# Runs unit tests with Jest
+$ yarn test (picks automatically test:watch on local machine and test:coverage on CI)
+$ yarn test:coverage (creates coverage folder)
+$ yarn test:watch (with --watch flag)
+$ yarn test:debug (to use chrome to debug jest tests)
+
+# Runs E2E/Integration tests with Cypress
+$ yarn test:e2e (picks automatically test:e2e:dev on local machine and test:e2e:run on CI)
+$ yarn test:e2e:dev (with interface)
+$ yarn test:e2e:run (without interface)
+
+```
+
+## Tests
+
+- Unit tests are in spec/jest/unit.
+- Integration tests are in spec/cypress/integration.
