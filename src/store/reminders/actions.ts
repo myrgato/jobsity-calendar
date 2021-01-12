@@ -18,6 +18,8 @@ async function getWeather(data: any) {
       `/forecast?q=${data.city}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
     );
 
+    console.log("response", { response });
+
     for (const forecast of response.data.list) {
       const { dt_txt: dtTxt } = forecast;
       const forecastDateString = dtTxt.split(" ")[0];

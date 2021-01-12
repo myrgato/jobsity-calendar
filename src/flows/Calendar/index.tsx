@@ -26,7 +26,7 @@ import {
   deleteReminder,
   editReminder,
   deleteReminders,
-} from "../../store/calendar";
+} from "../../store/reminders";
 
 const useStyles = makeStyles((theme) => ({
   table: {

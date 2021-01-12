@@ -1,7 +1,7 @@
 import { getDay, getDaysInMonth, getWeeksInMonth } from "date-fns";
 
 import { WEEK_LENGTH } from "../consts";
-import { RemindersState } from "../store/calendar";
+import { RemindersState } from "../store/reminders";
 import getNextMonth from "./getNextMonth";
 import getPreviousMonth from "./getPreviousMonth";
 

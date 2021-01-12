@@ -2,7 +2,7 @@ import { combineReducers, createStore, CombinedState } from "redux";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { persistStore, persistReducer, createTransform } from "redux-persist";
 
-import { reminderReducer } from "./calendar";
+import { reminderReducer } from "./reminders";
 
 const appReducer = combineReducers({
   reminders: reminderReducer,
