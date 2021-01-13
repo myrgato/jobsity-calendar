@@ -32,6 +32,7 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
+    "no-unused-vars": 0,
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -46,5 +47,6 @@ module.exports = {
     "no-continue": 0,
     "no-restricted-syntax": 0,
     "no-prototype-builtins": 0,
+    "react/no-array-index-key": 0,
   },
 };

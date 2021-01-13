@@ -28,6 +28,7 @@ import {
   deleteReminders,
   RemindersState,
 } from "../../store/reminders";
+import { DataReminder } from "../../store/reminders/actions";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -39,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
   },
   todayButton: {
     minWidth: 100,
@@ -86,7 +86,7 @@ const Calendar = () => {
 
   const dispatch = useDispatch();
 
-  async function handleAddReminder(reminder: RemindersState[0]) {
+  async function handleAddReminder(reminder: DataReminder) {
     dispatch(await addReminder(remindersState, reminder));
   }
 
@@ -184,35 +184,36 @@ const Calendar = () => {
           </TableHead>
           <TableBody>
             {calendar.map((week, row: any) => (
-              <TableRow>
-                {week.map((day: any, column: any) => (
-                  <TableCell
-                    className={classes.td}
-                    data-testId={`table-cell-${column}`}
-                    onClick={() => {
-                      selectedDay.current = { row, column };
-                      clickedDay.current = day.date;
-                      setReminderModal(true);
-                    }}
-                  >
-                    <Day
-                      date={day.date}
-                      reminders={day.reminders}
-                      setReminders={(reminders: RemindersState[0]) => {
-                        const newCalendar = [...calendar];
-                        newCalendar[row][column].reminders = reminders;
-                        setCalendar(newCalendar);
-                      }}
-                      onDeleteAllReminders={handleDeleteAllReminders}
-                      onDeleteReminder={handleDeleteReminder}
-                      onEditReminder={(reminder: RemindersState[0]) => {
-                        currentReminder.current = reminder;
+              <TableRow key={row}>
+                {week.map(
+                  (
+                    day: { date: Date; reminders: RemindersState },
+                    column: any
+                  ) => (
+                    <TableCell
+                      className={classes.td}
+                      data-test-id={`table-cell-${column}`}
+                      onClick={() => {
                         selectedDay.current = { row, column };
+                        clickedDay.current = day.date;
                         setReminderModal(true);
                       }}
-                    />
-                  </TableCell>
-                ))}
+                      key={column}
+                    >
+                      <Day
+                        date={day.date}
+                        reminders={day.reminders}
+                        onDeleteAllReminders={handleDeleteAllReminders}
+                        onDeleteReminder={handleDeleteReminder}
+                        onEditReminder={(reminder: RemindersState[0]) => {
+                          currentReminder.current = reminder;
+                          selectedDay.current = { row, column };
+                          setReminderModal(true);
+                        }}
+                      />
+                    </TableCell>
+                  )
+                )}
               </TableRow>
             ))}
           </TableBody>
@@ -241,7 +242,7 @@ const Calendar = () => {
           }}
         >
           <ReminderForm
-            onSave={async (reminder: RemindersState[0]) => {
+            onSave={async (reminder: DataReminder) => {
               await handleAddReminder(reminder);
               setReminderModal(false);
             }}

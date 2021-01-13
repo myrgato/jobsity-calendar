@@ -1,5 +1,8 @@
+import React from "react";
+
 import { Box, Button, makeStyles, Typography } from "@material-ui/core";
 import { format } from "date-fns";
+import { RemindersState } from "../../../store/reminders";
 import Reminders from "./Reminders";
 
 const useStyles = makeStyles(() => ({
@@ -19,13 +22,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Day = ({
+interface IProps {
+  reminders: RemindersState | [];
+  date: Date;
+  onEditReminder: (reminder: RemindersState[0]) => void;
+  onDeleteReminder: (id: string) => Promise<void>;
+  onDeleteAllReminders: (date: Date) => Promise<void>;
+}
+
+const Day: React.FC<IProps> = ({
   reminders = [],
   date,
   onEditReminder,
   onDeleteAllReminders,
   onDeleteReminder,
-}: any) => {
+}) => {
   const classes = useStyles();
 
   const isToday =
@@ -49,7 +60,7 @@ const Day = ({
             variant="contained"
             color="secondary"
             size="small"
-            data-testId="button-day-delete-all"
+            data-test-id="button-day-delete-all"
             onClick={(e) => {
               e.stopPropagation();
               onDeleteAllReminders(date);

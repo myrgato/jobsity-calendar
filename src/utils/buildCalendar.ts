@@ -48,11 +48,16 @@ function getMonthReminders(reminders: RemindersState, date: Date) {
   );
 }
 
+type ICalendar = {
+  date: Date;
+  reminders: RemindersState;
+}[];
+
 export default function buildCalendar({
   selectedDate,
   reminders,
 }: buildCalendarParameters["calendar"]) {
-  const calendar: any[] = [];
+  const calendar: ICalendar[] = [];
 
   const currentCalendarFirstDay = getFirsthDayOfMonth(selectedDate);
   const currentCalendarLastDay = getLastDayOfMonth(selectedDate);

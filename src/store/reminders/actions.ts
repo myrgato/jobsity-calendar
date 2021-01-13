@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import api from "../../services/api";
 import { RemindersState } from "./types";
 
-type DataReminder = Omit<RemindersState[0], "id" | "weather">;
+export type DataReminder = Omit<RemindersState[0], "id" | "weather">;
 
 interface Weather {
   icon: string;
@@ -17,8 +17,6 @@ async function getWeather(data: any) {
     const response = await api.get<any>(
       `/forecast?q=${data.city}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
     );
-
-    console.log("response", { response });
 
     for (const forecast of response.data.list) {
       const { dt_txt: dtTxt } = forecast;

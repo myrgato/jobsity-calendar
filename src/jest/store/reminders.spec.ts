@@ -11,7 +11,7 @@ import {
 import reminderData from "../fixtures/ReminderData";
 
 describe("testing reminders state of store", () => {
-  const middlewares: any = [];
+  const middlewares: [] = [];
   const mockStore = configureMockStore(middlewares);
   let mockApi: MockAdapter;
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe("testing reminders state of store", () => {
   });
 
   it("should create a reminder with date and city", async () => {
-    const initialState: any = [];
+    const initialState: [] = [];
     const store = mockStore(initialState);
     mockApi
       .onGet(`/forecast?q=Miami&appid=${process.env.REACT_APP_WEATHER_API_KEY}`)

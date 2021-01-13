@@ -15,8 +15,22 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
+import { RemindersState } from "../../../store/reminders";
+import { DataReminder } from "../../../store/reminders/actions";
 
-const ReminderForm = ({ onSave, onEdit, currentReminder, clickedDay }: any) => {
+interface IProps {
+  onSave: (reminder: DataReminder) => Promise<void>;
+  onEdit: (reminder: RemindersState[0]) => Promise<void>;
+  currentReminder: any;
+  clickedDay: any;
+}
+
+const ReminderForm: React.FC<IProps> = ({
+  onSave,
+  onEdit,
+  currentReminder,
+  clickedDay,
+}) => {
   const [selectedDate, setSelectedDate] = React.useState(
     currentReminder.date || clickedDay
   );
@@ -91,7 +105,7 @@ const ReminderForm = ({ onSave, onEdit, currentReminder, clickedDay }: any) => {
         <TextField
           label="Description"
           value={description}
-          data-testId="text-field-description"
+          data-test-id="text-field-description"
           required
           onChange={(event) => handleDescriptionChange(event.target.value)}
         />
@@ -118,7 +132,7 @@ const ReminderForm = ({ onSave, onEdit, currentReminder, clickedDay }: any) => {
           variant="contained"
           color="primary"
           disabled={description === ""}
-          data-testId="button-commit"
+          data-test-id="button-commit"
           onClick={async () => {
             if (currentReminder.date) {
               setLoading(true);
